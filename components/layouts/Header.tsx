@@ -1,7 +1,8 @@
 import React from "react";
 import Link from "next/Link";
 import {Router, withRouter} from 'next/router';
-import {RouteList} from "routes";
+import {RouteData} from "repository/routeRep";
+
 
 const style ={
     header :{
@@ -36,7 +37,7 @@ type props ={
     router : Router
 }
 
-const repository = RouteList;
+const repository = RouteData;
 
 const Header =({router}: props) => {
     const path = router.pathname;
