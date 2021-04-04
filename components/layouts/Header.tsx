@@ -1,8 +1,7 @@
 import React from "react";
 import Link from "next/Link";
 import {Router, withRouter} from 'next/router';
-import {RouteData} from "repository/routeRep";
-
+import {MenuRep} from "repository/menuRep";
 
 const style ={
     header :{
@@ -12,7 +11,9 @@ const style ={
         background: '#333',
         display: 'flex',
         justifyContent : 'left',
-        alignItems :'center'
+        alignItems :'center',
+        position: 'sticky',
+        top : 0
     },
     logoWrapper :{
         color :'#eee',
@@ -37,28 +38,33 @@ type props ={
     router : Router
 }
 
-const repository = RouteData;
+const repository = MenuRep;
 
 const Header =({router}: props) => {
     const path = router.pathname;
     return(
         <header style={style.header}>
-            <div style={style.logoWrapper}>
-                <svg>
-                    <path d="M10,65 C35,125 80,0 130,95" fill="none" stroke="#fff" stroke-width="3" />
-                </svg>
-            </div>
-            <nav style={style.navWrapper}>
-                {repository.map((item) => (
-                    <div style={
+
+                <div style={style.logoWrapper}>
+                    <svg>
+                        <path d="M10,65 C35,125 80,0 130,95" fill="none" stroke="#fff" strokeWidth="3" />
+                    </svg>
+                </div>
+                <nav style={style.navWrapper}>
+                    {repository.map((item) => (
+                        <div style={
                             (path === item.path )
                                 ? style.activeItem
                                 : style.normalItem
                         } key={item.id}>
-                        <Link href={item.path} as={item.as}><a>{item.name}</a></Link>
+                            <Link href={item.path} as={item.as}><a>{item.name}</a></Link>
+                        </div>
+                    ))}
+                    <div>
+                        <input type="text"/>
+                        <button>검색</button>
                     </div>
-                ))}
-            </nav>
+                </nav>
         </header>
     )
 }

@@ -1,11 +1,12 @@
 import React from "react";
+import TextLogo from "@components/svg/TextLogo";
 
 const Footer =() =>{
 
     return(
         <footer>
             <hr />
-            <span>I'm senshig (Footer)</span>
+            <TextLogo/>
         </footer>
     )
 }
