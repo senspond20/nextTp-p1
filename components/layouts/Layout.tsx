@@ -1,7 +1,6 @@
 import React, { ReactNode ,Fragment} from 'react'
 import Head from 'next/head'
 import Header from "@components/layouts/Header";
-import History from "@components/layouts/History";
 import Footer from "@components/layouts/Footer";
 import GlobalStyle from "@components/layouts/GlobalStyle";
 
@@ -28,7 +27,7 @@ const LayoutStyles = {
 
 }
 
-const Layout = ({ children, title = 'This is the default title' }: Props) => (
+const Layout = ({ children, title = 'default title' }: Props) => (
     <Fragment>
         <GlobalStyle/>
         <Head>
@@ -39,7 +38,6 @@ const Layout = ({ children, title = 'This is the default title' }: Props) => (
 
         <div style={LayoutStyles.Wrapper}>
             <Header/>
-            <History/>
             <section style={LayoutStyles.Container}>
                 <main style={LayoutStyles.MainContents}>
                     {children}
@@ -47,8 +45,6 @@ const Layout = ({ children, title = 'This is the default title' }: Props) => (
             </section>
             <Footer/>
         </div>
-
-
     </Fragment>
 )
 

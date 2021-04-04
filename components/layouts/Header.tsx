@@ -1,5 +1,7 @@
 import React from "react";
 import Link from "next/Link";
+import {Router, withRouter} from 'next/router';
+import {RouteList} from "routes";
 
 const style ={
     header :{
@@ -20,14 +22,22 @@ const style ={
         display: 'flex',
         background: '#333'
     },
-    navItem : {
+    normalItem : {
         margin : '3px 10px',
         color : '#eee'
+    },
+    activeItem :{
+        margin : '3px 10px',
+        color :'red'
     }
 };
 
-const Header =() =>{
-    
+type props ={
+    router : Router
+}
+
+const Header =({router}: props) => {
+    const path = router.pathname;
     return(
         <header style={style.header}>
             <div style={style.logoWrapper}>
@@ -36,17 +46,18 @@ const Header =() =>{
                 </svg>
             </div>
             <nav style={style.navWrapper}>
-                <div style={style.navItem}>
-                    <Link href="" as="/"><a>Home</a></Link>
-                </div>
-                <div style={style.navItem}>
-                    <Link href="/posts" as="/posts"><a>Posts</a></Link>
-                </div>
-                <div style={style.navItem}>
-                    <Link href= "#"><a>About</a></Link>
-                </div>
+                {RouteList.map((item) => (
+                    <div style={
+                            (path === item.path )
+                                ? style.activeItem
+                                : style.normalItem
+                        } key={item.id}>
+                        <Link href={item.path} as={item.as}><a>{item.name}</a></Link>
+                    </div>
+                ))}
             </nav>
         </header>
     )
 }
-export default Header;
+// export default Header;
+export default withRouter(Header);

@@ -4,6 +4,7 @@
       "paths": {
         "interfaces/*": ["interfaces/*"],
         "repository/*": ["repository/*"],
+        "routes/*" : ["routes/*"],
         "@components/*": ["components/*"],
         "@service/*": ["service/*"],
       },
