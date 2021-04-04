@@ -36,6 +36,8 @@ type props ={
     router : Router
 }
 
+const repository = RouteList;
+
 const Header =({router}: props) => {
     const path = router.pathname;
     return(
@@ -46,7 +48,7 @@ const Header =({router}: props) => {
                 </svg>
             </div>
             <nav style={style.navWrapper}>
-                {RouteList.map((item) => (
+                {repository.map((item) => (
                     <div style={
                             (path === item.path )
                                 ? style.activeItem
