@@ -37,6 +37,9 @@ const NormalPostList = ({items}: Props) => {
                             <p style={style.itemId}>{item.id}</p>
                             <p><span>title : </span>{item.title}</p>
                             <p><span>content : </span>{item.content}</p>
+                            <p><span>category : </span>{item.category}</p>
+                            <p><span>createAt : </span>{item.createAt}</p>
+                            <p><span>updateAt : </span>{item.updateAt}</p>
                         </div>
                     </li>
                 ))}
