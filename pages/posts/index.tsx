@@ -1,28 +1,38 @@
-import {/* GetStaticProps,*/ GetServerSideProps } from 'next'
-import {Post, Props, samplePostData} from "repository/postRep";
-import PostList from "@components/posts/PostList";
+import {GetServerSideProps } from 'next'
+import {getPostDateService, PostResponseDto} from "repository/postRep";
+import {Fragment} from "react";
+import NormalPostList from "@components/posts/NormalPostList";
 import Layout from "@components/layouts/Layout";
-import axios from "axios";
 
-const WithStaticProps = ({ items}: Props) => {
-    return(
-        <Layout title="board">
-            <h1>Board</h1>
-            <PostList items={items} isHome={false}/>
-        </Layout>
-    )
+const style ={
+    title :{textAlign:'center' as const},
 }
+
+/**
+ * Posts View를 랜더링 한다.
+ * @param items
+ * @param isSuccess
+ * @constructor
+ */
+const PostsController = ({ items, isSuccess}: PostResponseDto) => (
+    <Layout title="board">
+        <Fragment>
+            <h1 style={style.title}>Board</h1>
+            {
+                isSuccess === true
+                ? <NormalPostList items={items} isSuccess/>
+                : <h3>서버에서 데이터를 가져오는데 실패했습니다</h3>
+            }
+       </Fragment>
+    </Layout>
+);
+
 export const getServerSideProps: GetServerSideProps = async () => {
-    const res = await axios.get("http://senspond.iptime.org:8083/api/board/all");
-    const data = res.data;
-    console.log(data)
-    const items: Post[] = samplePostData
-    return { props: { items } }
+    const data = await getPostDateService();
+    return { props: data }
 }
-/*
-export const getStaticProps: GetStaticProps = async () => {
-    const items: Post[] = samplePostData
-    return { props: { items } }
-}*/
 
-export default WithStaticProps;
+export default PostsController;
+
+
+

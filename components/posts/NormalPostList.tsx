@@ -1,12 +1,12 @@
 import React,{Fragment} from "react";
-import {Props} from "repository/postRep";
+import {PostResponseDto} from "repository/postRep";
 
 const style ={
     ulWrapper: {
         display :'flex',
         justifyContent : 'center',
         alignItems : 'center',
-        flexWrap : 'wrap-reverse'
+        flexWrap : 'wrap-reverse' as const
         // flexDirection: 'row'
     },
     liWrapper : {
@@ -25,12 +25,13 @@ const style ={
     }
 }
 
-const NormalPostList = ({items}: Props) => {
-
-    // @ts-ignore
+const NormalPostList = ({items}: PostResponseDto) => {
     return (
         <Fragment>
             <ul style={style.ulWrapper}>
+                {
+                    /* items 이 비었을 경우 <데이터가 없습니다> 처리 */
+                }
                 {items.map((item) => (
                     <li key={item.id} style={style.liWrapper}>
                         <div>

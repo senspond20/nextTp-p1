@@ -12,7 +12,7 @@ const style ={
         display: 'flex',
         justifyContent : 'left',
         alignItems :'center',
-        position: 'sticky',
+        position: 'sticky' as const,
         top : 0
     },
     logoWrapper :{
@@ -38,13 +38,11 @@ type props ={
     router : Router
 }
 
-const repository = MenuRep;
-
 const Header =({router}: props) => {
+    const repository = MenuRep;
     const path = router.pathname;
     return(
         <header style={style.header}>
-
                 <div style={style.logoWrapper}>
                     <svg>
                         <path d="M10,65 C35,125 80,0 130,95" fill="none" stroke="#fff" strokeWidth="3" />
@@ -68,5 +66,6 @@ const Header =({router}: props) => {
         </header>
     )
 }
+
 // export default Header;
 export default withRouter(Header);
