@@ -1,6 +1,6 @@
-import React,{Fragment} from "react";
+import {Fragment} from "react";
 import {PostResponseDto} from "repository/postRep";
-
+import Link from "next/Link";
 const style ={
     ulWrapper: {
         display :'flex',
@@ -22,7 +22,8 @@ const style ={
     },
     itemId :{
         color:'red'
-    }
+    },
+    linkStyle :{ cursor :'pointer'}
 }
 
 const NormalPostList = ({items}: PostResponseDto) => {
@@ -34,14 +35,16 @@ const NormalPostList = ({items}: PostResponseDto) => {
                 }
                 {items.map((item) => (
                     <li key={item.id} style={style.liWrapper}>
-                        <div>
-                            <p style={style.itemId}>{item.id}</p>
-                            <p><span>title : </span>{item.title}</p>
-                            <p><span>content : </span>{item.content}</p>
-                            <p><span>category : </span>{item.category}</p>
-                            <p><span>createAt : </span>{item.createAt}</p>
-                            <p><span>updateAt : </span>{item.updateAt}</p>
-                        </div>
+                        <Link href="/posts/[id]" as={`/posts/${item.id}`} >
+                            <div style={style.linkStyle}>
+                                <p style={style.itemId}>{item.id}</p>
+                                <p><span>title : </span>{item.title}</p>
+                                <p><span>content : </span>{item.content}</p>
+                                <p><span>category : </span>{item.category}</p>
+                                <p><span>createAt : </span>{item.createAt}</p>
+                                <p><span>updateAt : </span>{item.updateAt}</p>
+                            </div>
+                        </Link>
                     </li>
                 ))}
             </ul>

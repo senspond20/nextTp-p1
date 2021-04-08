@@ -46,7 +46,7 @@ export async function getPostDateService() : Promise<PostResponseDto>{
         });
     isSuccess = true;
     if(isOkResponse === true)  {
-      console.log("================= Response convert =====================")
+      console.log("================= Response data =====================")
        console.log(data);
        console.log("================ Convert =====================")
        console.log(items);
