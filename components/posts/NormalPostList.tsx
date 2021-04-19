@@ -2,28 +2,11 @@ import {Fragment} from "react";
 import {PostResponseDto} from "repository/postRep";
 import Link from "next/Link";
 const style ={
-    ulWrapper: {
-        display :'flex',
-        justifyContent : 'center',
-        alignItems : 'center',
-        flexWrap : 'wrap-reverse' as const
-        // flexDirection: 'row'
-    },
-    liWrapper : {
-      display :'flex',
-      justifyContent : 'center',
-      alignItems : 'center',
-      border : '1px solid #eee',
-      borderRadius: '4px',
-      padding: '60px',
-      Width: '400px',
-      margin: '10px 20px',
-      height: '80px'
-    },
-    itemId :{
-        color:'red'
-    },
-    linkStyle :{ cursor :'pointer'}
+    ulWrapper : { display :'flex', justifyContent : 'center', alignItems : 'center', flexWrap : 'wrap-reverse' as const  },
+    liWrapper : { display :'flex', justifyContent : 'center', alignItems : 'center',   border : '1px solid #eee',
+                  borderRadius: '4px',  padding : '60px',  Width: '400px',  margin: '10px 20px',  height: '80px'  },
+    itemId : {  color:'red'  },
+    linkStyle : { cursor :'pointer'}
 }
 
 const NormalPostList = ({items}: PostResponseDto) => {
