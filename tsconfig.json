@@ -5,6 +5,7 @@
         "interfaces/*": ["interfaces/*"],
         "repository/*": ["repository/*"],
         "routes/*" : ["routes/*"],
+        "@public/*" : ["public/*"],
         "@components/*": ["components/*"],
         "@service/*": ["service/*"],
       },
