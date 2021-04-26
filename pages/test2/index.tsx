@@ -4,14 +4,16 @@ import Slider from "react-slick";
 // import "slick-carousel/slick/slick-theme.css";
 import {GetStaticProps} from "next";
 import {getSampleData, SliderResponseDto} from "repository/sliderRep";
-import "@public/slick.css"
-import "@public/slider.css"
+import "../../public/slick.css"
+import "../../public/slider.css"
 // import "../../public/slider.css"
 
-function Arrow(props: { className: string;  }) {
-    const { className} = props;
-    return ( <button{...props} className={className}>ㅇㅇgg</button> );
+function Arrow(props: {className: string;  }) {
+    const {className} = props;
+    return ( <button{...props} className={className}>OO</button> );
 }
+
+
 
 const ReactSlick = ({data} : SliderResponseDto) => {
     // data = getSampleData
@@ -30,13 +32,15 @@ const ReactSlick = ({data} : SliderResponseDto) => {
         centerPadding: "20px",
         arrows: true,
         dots: true,
-        // prevArrow: <Arrow  className={"slide-arrow slick-prev"}/>,
-        // nextArrow: <Arrow  className={"slide-arrow slick-next"}/>,
+  
+        //  prevArrow: <Arrow  className={"slide-arrow slick-prev"}/>,
+        //  nextArrow: <Arrow  className={"slide-arrow slick-next"}/>,
+         nextArrow: ( <button className={"slide-arrow slick-next"}>OO</button>),
         customPaging: function (index: number): JSX.Element {
             return (
                     <div>
                         <ul className={"slide-banner"}>
-                            <div className={"bn-item"}>jhkjhkj${index}</div>
+                            <div className={"bn-item"}>{index + 1}</div>
                         </ul>
                     </div>
                 );
@@ -48,7 +52,7 @@ const ReactSlick = ({data} : SliderResponseDto) => {
 
                 <div key = {index} className={"item"}>
                     <h3>{item.id}</h3>
-                    {/*<img src={item.url} alt={""} />*/}
+                    <img src={item.url} alt={""} />
 
                 </div>
 
