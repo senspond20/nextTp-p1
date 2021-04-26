@@ -1,8 +1,9 @@
 import React, { Component } from "react";
 // import ReactDOM from "react-dom";
 import Slider from "react-slick";
-import "@public/slick.css"
 // import Modal from "react-responsive-modal";
+import "@public/slick.css";
+import "@public/slider.css"
 // import "./styles.scss";
 
 class MultipleItems extends Component {
@@ -32,36 +33,7 @@ class MultipleItems extends Component {
     };
   }
 
-  // componentDidUpdate() {
-  //let elements = document.querySelectorAll(".slide");
-  // console.log(elements);
-  //   elements.addEventListener("mousedown", this.clickHandler, false);
-  //   elements.addEventListener("mousemove", this.clickHandler, false);
-  //   elements.addEventListener("mouseup", this.clickHandler, false);
-  // }
-
-  onOpenModal = (e:any) => {
-    e.preventDefault();
-    this.setState({ open: true, index: e.target.dataset.index });
-    console.log(e.target.dataset.index);
-  };
-
-  onCloseModal = () => {
-    this.setState({ open: false });
-  };
-
-  slideClicked = (e:any) => {
-    e.preventDefault();
-    console.log(e.type);
-  };
-
-  // nextClick = currentSlideIndex => {
-  //   if (currentSlideIndex === 0) {
-  //     document.querySelector(".slick-prev").setAttribute("aria-disabled", true);
-  //   }
-  // };
   render() {
-    const { open } = this.state;
     const SlickArrowLeft = ({ currentSlide, slideCount, ...props }) => (
       <button
         {...props}
@@ -76,6 +48,7 @@ class MultipleItems extends Component {
         Previous
       </button>
     );
+    // @ts-ignore
     const SlickArrowRight = ({ currentSlide, slideCount, ...props }) => (
       <button
         {...props}
@@ -91,49 +64,39 @@ class MultipleItems extends Component {
       </button>
     );
 
+    // @ts-ignore
     const settings = {
-      arrows: true,
-      centerMode: true,
-      edgeFriction: 1,
-      infinite: false,
-      swipeToSlide: true,
-      variableWidth: true,
-      accessibility: true,
+      infinite: true,
+      speed: 500,
+      autoplay: false,
+      autoplaySpeed: 2000,
+      slidesToShow:1,
+      slidesToScroll: 1,
       prevArrow: <SlickArrowLeft />,
       nextArrow: <SlickArrowRight />,
-      focusOnSelect: true,
-      draggable: true
-
+      centerPadding: "20px",
+      arrows: true,
+      dots: true,
       // afterChange: this.nextClick
     };
 
+    // @ts-ignore
     return (
       <div className="slides">
         <h2> Multiple items </h2>
-        <Slider {...settings}>
+        <Slider {...settings} className={"slider"}>
           {this.state.slides.map((slide, index) => {
             return (
               <div key={index}>
-                {/* <a
-                  href="javascript:void(0)"
-                  className="slide"
-                  onClick={this.onOpenModal}
-                  tabIndex="0"
-                > */}
                   <img src={slide.img} data-index={index} />
                   <p>Slide {index}</p>
-                {/* </a> */}
               </div>
             );
           })}
         </Slider>
-        {/* <Modal open={open} onClose={this.onCloseModal} center>
-          <h2>Simple centered modal {this.state.index}</h2>
-        </Modal> */}
       </div>
     );
   }
 }
 export default MultipleItems;
-// const rootElement = document.getElementById("root");
-// ReactDOM.render(<MultipleItems />, rootElement);
+
