@@ -1,7 +1,8 @@
 import React from "react";
 // import { render } from "react-dom";
 import "react-responsive-modal/styles.css";
-import { Modal } from "react-responsive-modal";
+// @ts-ignore
+import { Modal } from 'react-responsive-modal';
 
 const styles = {
     fontFamily: "sans-serif" as const,
