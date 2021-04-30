@@ -19,6 +19,8 @@ const EditorWithForwardedRef = React.forwardRef<EditorType | undefined, EditorPr
     <Editor {...props} forwardedRef={ref as React.MutableRefObject<EditorType>} />
 ));
 
+// 이미지 업로드
+// https://solve-programming.tistory.com/29
 
 const TuiEditor : React.FC<EditorProps> = (props) => {
     const { initialValue, previewStyle, height, initialEditType, useCommandShortcut } = props;
