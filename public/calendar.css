@@ -1,0 +1,52 @@
+.Calendar {
+    user-select: none;
+}
+.Calendar .body .row {
+    display: flex;
+    cursor: pointer;
+}
+.Calendar .body .row:first-child {
+    cursor: initial;
+}
+.Calendar .body .row:first-child .box {
+    font-weight: bold;
+}
+.Calendar .body .row:first-child .box:hover > span.text {
+    background-color: white;
+}
+.Calendar .body .row .box {
+    position: relative;
+    display: inline-flex;
+    width: calc(100%/7);
+    height: 0;
+    padding-bottom: calc(100%/7);
+    font-size: 12pt;
+}
+.Calendar .body .row .box:first-child {
+    color: red;
+}
+.Calendar .body .row .box:last-child {
+    color: #588dff;
+}
+.Calendar .body .row .box.grayed {
+    color: gray;
+}
+.Calendar .body .row .box:hover span.text {
+    background-color: rgba(88, 141, 255, 0.1);
+}
+.Calendar .body .row .box.selected span.text {
+    background-color: #588dff;
+    color: white;
+}
+.Calendar .body .row .box span.text {
+    border-radius: 100%;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 50%;
+    height: 50%;
+    position: absolute;
+    top: 20%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
