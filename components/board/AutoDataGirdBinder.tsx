@@ -9,9 +9,16 @@ const styleUl ={
         padding : '15px'
     }
 }
-const AutoDataGirdBinder = (data : []) =>{
+type Prop ={
+    data : any
+}
 
-    let itemList = (data !=null) ? data.map((item : any, index : number)=>
+const AutoDataGirdBinder = (dto : Prop) =>{
+    const data = dto.data;
+    const checkData = (data !=null && Array.isArray(data));
+    console.log(checkData)
+    let itemList = (checkData)  
+    ? data.map((item : any, index : number)=>
         (
             <tr key={index}>
                 {Object.keys(item).map(k => <td>{item[k]}</td> )}
@@ -22,9 +29,9 @@ const AutoDataGirdBinder = (data : []) =>{
     return(
         <Fragment>
         {
-            (data == null) 
+            (checkData) 
             ?
-            <table style={styleUl.center}>
+            (<table style={styleUl.center}>
                 <thead>
                     <tr>
                         {Object.keys(data[0]).map(k => <th>{k}</th> )}
@@ -33,9 +40,9 @@ const AutoDataGirdBinder = (data : []) =>{
                 <tbody>
                         {itemList}
                 </tbody>
-            </table>
+            </table>)
             :
-            <table style={styleUl.center}>
+            (<table style={styleUl.center}>
                 <thead>
                     <tr>                   
                     </tr>
@@ -43,7 +50,7 @@ const AutoDataGirdBinder = (data : []) =>{
                 <tbody>
                        <tr><td colSpan={6}>데이터가 존재하지 않습니다</td></tr>
                 </tbody>
-            </table>
+            </table>)
         }
         </Fragment>
     )

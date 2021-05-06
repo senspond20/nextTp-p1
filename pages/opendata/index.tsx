@@ -1,108 +1,132 @@
-import React from "react";
+import React,{useState} from "react";
 // import Layout from "@components/layouts/Layout";
 import {getAnniversaryInfo} from "repository/openapi_b090041";
 import {GetServerSideProps} from "next";
-// import AutoDataGirdBinder from "@components/board/AutoDataGirdBinder";
+import AutoDataGirdBinder from "@components/board/AutoDataGirdBinder";
 
 import moment from "moment";
+import InputWithLabel from "@components/auth/InputWithLabel";
+import { OpenDataUrlQueryParams } from "@utils/MakeUrl";
+import axios from "axios";
 
 /**
  * Posts View를 랜더링 한다.
  * @constructor
  * @param props
  */
-const styleUl ={
+const style={
     center : {
         margin : '0 auto',
         textAlign:'center' as const
     },
     form :{
         border : '1px solid red',
-        padding : '15px'
+        padding : '45px 50px 40px 40px',
+        display : 'flex',
+        justipyAligin : 'center'
+        // width : '450px',
+    },
+    Wrapper :{
+
+    },
+    Label :{
+
+    },
+    Input :{
+
     }
 }
 
 const today = moment();
-const params ={
+
+let params ={
     ServiceKey : process.env.REACT_APP_OPENDATA_SERVICE_KEY,
     pageNo : "",
     numOfRows : "100",
-    solYear : "2021",
-    solMonth :"4"
+    solYear : today.year(), // 올해 년도
+    solMonth : ""
 };
-// @ts-ignore
-const handleSubmit = (e) =>{
-    e.preventDefault();
-    alert('dfd')
+
+/**
+ * 새로 고침시 초기데이터 서버사이드 랜더링(SSR) or 정적사이트생성기(SSG) (검색엔진 노출)
+ * 오늘 날짜는 변동 가능함으로 빌드시 고정되는 SSG대신 SSR 채용.
+ * @returns 
+ */
+export const getServerSideProps: GetServerSideProps = async () => {
+    const data = await getAnniversaryInfo(params);
+    let response = (data!=null) ? data : null; 
+    return { props:  { response } }
 }
 
-// @ts-ignore
-const Handler = ({data}) => {
-    
-// @ts-ignore
-    
-    let itemList = (data !=null) ? data.map((item,index)=>
-        (
-            <tr key={index}>
-                {Object.keys(item).map(k => <td>{item[k]}</td> )}
-            </tr>
-        )
-    ) : null
- 
+async function handleSubmit(e: { preventDefault: () => void; }){
+    // 새로고침을 막는다.
+    e.preventDefault();
+    // alert('d')
+    const rootUrl = "http://apis.data.go.kr/B090041/openapi/service/SpcdeInfoService";
+    const baseUrl = rootUrl + "/getAnniversaryInfo";
+    let url = OpenDataUrlQueryParams(baseUrl, params) + '&type=JSON';
+    console.log(url)
+    try {
+        const response = await axios.get(url)
+        const data = response.data;
+        const items = data.response.body.items.item;
+        console.log(items)
+        // return  items;
+    }catch (e){
+         console.log(e.response)
+    }
+    // return [];
+    // console.log(data)
+    // let response = (data!=null) ? data : null; 
+    // return { props:  { response } }
+}
+
+type Props = {
+    response : []
+}
+const Handler = ( props : Props) => {
+
+    // const [inputs, setInputs] = useState({
+    //     pageNo : "",
+    //     numOfRows : "100",
+    //     solYear : "2021",
+    //     solMonth : ""
+    // });
+    // const {pageNo,numOfRows,solYear,solMonth} = inputs;
+
+    /**
+     * 두번째 요청부터는 새로고침을 발생시키지 않고 클라이언트 사이드 랜더링(CSR)을 한다.
+     * @param e 
+     */
+
+    console.log(params)
+    // console.log(data)
     return (
         // <Layout title="board">
-            <div style={styleUl.center}>
+            <div style={style.center}>
                 <h1>Data Get</h1>
-                <form method={"get"} style={styleUl.form} onSubmit={handleSubmit}>
-                    {
-                        Object.keys(params).map(k => {
-                            const v = Object(params)[k];
-                            return( <div><label>{k} : </label><input type={"text"} value= {v} name={v}/></div> )
-                        })
-                    }
-                    <div><input type={"submit"} value={"조회"}/></div>
+                <form method={"get"} style={style.form} onSubmit={handleSubmit}>
+                    <div>
+                        {
+                            Object.keys(params).map((k, index)=> {
+                                const v = Object(params)[k];
+                            
+                                return (<InputWithLabel key={index} label={k} defaultValue={ v!='' ? v : ''} name={k} style={style}/>)
+                                // return( <div  key={index}><label>{k} : </label><input type={"text"} defaultValue={ v!='' ? v : ''} name={k}/></div> )
+    
+                            })
+                        }
+                            <div><input type={"submit"} value={"조회"}/></div>
+                    </div>
                 </form>
-
-                {/*<AutoDataGirdBinder data={data}/>*/}
                 <h3>공공데이터 포털 API를 통해 조회한 결과입니다</h3>
-
-                {
-                    data = null 
-                    ?
-                    <table style={styleUl.center}>
-                        <thead>
-                            <tr>
-                                {Object.keys(data[0]).map(k => <th>{k}</th> )}
-                            </tr>
-                        </thead>
-                        <tbody>
-                                {itemList}
-                        </tbody>
-                    </table>
-                    :
-                    <table style={styleUl.center}>
-                        <thead>
-                            <tr>                   
-                            </tr>
-                        </thead>
-                        <tbody>
-                               <tr><td colSpan={6}>데이터가 존재하지 않습니다</td></tr>
-                        </tbody>
-                    </table>
-                }
+                <AutoDataGirdBinder data={props.response}/>
             </div>
         // </Layout>
     );
 }
 
-export const getServerSideProps: GetServerSideProps = async () => {
-    const data = await getAnniversaryInfo(params);
-    // const response =(data == null)? 0 : data;
-    let reponse = (data!=null) ? data : null;
 
-    return { props:  {reponse} }
-
-}
 
 export default Handler;
 
