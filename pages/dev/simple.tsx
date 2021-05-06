@@ -1,13 +1,11 @@
 import React from "react";
 import SimpleModal from "@components/modal/SimpleModal";
-
+import { LoginForm } from '@components/auth'
 
 const App = () => {
     return (
-
         <SimpleModal buttonLabel="Open">
-          <h2>Login Form</h2>
-           
+           <LoginForm/>
         </SimpleModal>
     );
 }
