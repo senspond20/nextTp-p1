@@ -8,6 +8,12 @@ import moment from "moment";
 import InputWithLabel from "@components/auth/InputWithLabel";
 import { OpenDataUrlQueryParams } from "@utils/MakeUrl";
 import axios from "axios";
+import styled from "styled-components";
+import InputArticle from "@components/board/InputArticle";
+
+const Wrapper = styled.section`
+  background-color: #fff;
+`;
 
 /**
  * Posts View를 랜더링 한다.
@@ -47,16 +53,6 @@ let params ={
     solMonth : ""
 };
 
-/**
- * 새로 고침시 초기데이터 서버사이드 랜더링(SSR) or 정적사이트생성기(SSG) (검색엔진 노출)
- * 오늘 날짜는 변동 가능함으로 빌드시 고정되는 SSG대신 SSR 채용.
- * @returns 
- */
-export const getServerSideProps: GetServerSideProps = async () => {
-    const data = await getAnniversaryInfo(params);
-    let response = (data!=null) ? data : null; 
-    return { props:  { response } }
-}
 
 async function handleSubmit(e: { preventDefault: () => void; }){
     // 새로고침을 막는다.
@@ -103,10 +99,10 @@ const Handler = ( props : Props) => {
     // console.log(data)
     return (
         // <Layout title="board">
-            <div style={style.center}>
+            <Wrapper>
                 <h1>Data Get</h1>
                 <form method={"get"} style={style.form} onSubmit={handleSubmit}>
-                    <div>
+                    {/* <div>
                         {
                             Object.keys(params).map((k, index)=> {
                                 const v = Object(params)[k];
@@ -117,16 +113,26 @@ const Handler = ( props : Props) => {
                             })
                         }
                             <div><input type={"submit"} value={"조회"}/></div>
-                    </div>
+                    </div> */}
+                    <InputArticle params={params}/>
                 </form>
-                <h3>공공데이터 포털 API를 통해 조회한 결과입니다</h3>
-                <AutoDataGirdBinder data={props.response}/>
-            </div>
+                <AutoDataGirdBinder data={props.response} title={"공공데이터 API 조회 결과입니다"}/>
+            </Wrapper>
         // </Layout>
     );
 }
 
 
+/**
+ * 새로 고침시 초기데이터 서버사이드 랜더링(SSR) or 정적사이트생성기(SSG) (검색엔진 노출)
+ * 오늘 날짜는 변동 가능함으로 빌드시 고정되는 SSG대신 SSR 채용.
+ * @returns 
+ */
+ export const getServerSideProps: GetServerSideProps = async () => {
+    const data = await getAnniversaryInfo(params);
+    let response = (data!=null) ? data : null; 
+    return { props:  { response } }
+}
 
 export default Handler;
 
