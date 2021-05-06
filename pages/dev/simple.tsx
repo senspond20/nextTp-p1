@@ -1,6 +1,6 @@
 import React from "react";
 import SimpleModal from "@components/modal/SimpleModal";
-import { LoginForm } from '@components/auth'
+import  LoginForm  from '@components/auth/LoginForm'
 
 const App = () => {
     return (

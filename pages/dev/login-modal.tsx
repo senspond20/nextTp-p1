@@ -1,7 +1,7 @@
 import React,{useState} from "react";
 // import { render } from "react-dom";
 import "react-responsive-modal/styles.css";
-import { InputWithLabel } from '@components/auth'
+import  LoginForm  from '@components/auth/LoginForm'
 // @ts-ignore
 import { Modal } from 'react-responsive-modal';
 
@@ -19,12 +19,7 @@ const App = () => {
         <div style={styles}>
             <button onClick={onOpenModal}>Open modal</button>
             <Modal open={open} onClose={onCloseModal}>
-                <h2>Login Form</h2>
-                <form>
-                    <InputWithLabel label="이메일" name="email" placeholder="이메일"/>
-                    <InputWithLabel label="비밀번호" name="password" placeholder="비밀번호" type="password"/>
-                    
-                </form>
+                <LoginForm/>
             </Modal>
         </div>
     );
