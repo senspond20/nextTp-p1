@@ -14,14 +14,16 @@ const Img = styled.img`
 `;
 
 const style ={
-
     Img : {
         width : '100%',
         objectFit : 'cover',
         borderRadius :'4px'
     }
 }
-
+const hadleSubmit =(e) =>{
+    e.preventDefault();
+    alert('dfd');
+}
 const LoginForm = () => {
     return (
 
@@ -30,7 +32,7 @@ const LoginForm = () => {
           <img style={style.Img}
             src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" 
             alt=""/>
-          <form>
+          <form onSubmit={hadleSubmit}>
              <InputWithLabel label="이메일" name="email" placeholder="이메일"/>
              <InputWithLabel label="비밀번호" name="password" placeholder="비밀번호" type="password"/>
              <div>
