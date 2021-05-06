@@ -17,17 +17,18 @@ const Table = styled.table`
 const Thead = styled.thead`
     border-bottom:10px solid #333;
     color : #3492df;
+    font-size: 1.4em;
 `;
 const Tbody = styled.tbody`
 `;
 
 const Td = styled.td`
-     font-size: 14px;
+     font-size: 1.2em;
      border-bottom:1px solid #eee;
 `;
 
 type Props ={
-    data : any
+    data : Array<any>
     title : string
 }
 

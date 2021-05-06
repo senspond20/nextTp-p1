@@ -2,6 +2,10 @@ import React from 'react';
 import PropTypes from "prop-types";
 import styled from 'styled-components';
 
+const Wrapper = styled.div`
+    position: sticky;
+    top:50px;
+`;
 const Label = styled.label`
     font-size: 1rem;
     color: #eee;
@@ -18,7 +22,8 @@ const Input = styled.input`
     padding-right: 0.5rem;
 `;
 
-const InputWithLabel = (label : any, ...rest : []) =>{
+//@ts-ignore
+const InputWithLabel = ({label, ...rest}) =>{
     return (
         <div>
             <Label>{label}</Label>
@@ -35,20 +40,27 @@ const InputArticle = (props : Props) => {
     const arr = Object.keys(props.params);
    
     return (
-            <div>
-                {/* {
+            <Wrapper>
+                {
                 (Array.isArray(arr)) ?
                     arr.map((k, index)=> {
-                        const v = Object(dto.params)[k];
-                        return (<InputWithLabel key={index} label={k} defaultValue={ v!='' ? v : ''} name={k} />)
+                        const v = Object(props.params)[k];
+                        return (<InputWithLabel key={index} label={k} defaultValue={ v!='' ? v : ''} name={k}  />)
+                
                         // return( <div  key={index}><label>{k} : </label><input type={"text"} defaultValue={ v!='' ? v : ''} name={k}/></div> )
 
                     }) :<div></div>
-                } */}
+                }
                     <div><input type={"submit"} value={"조회"}/></div>
-            </div>
+            </Wrapper>
     )
 
 };
-
+InputWithLabel.propTypes = {
+    label: PropTypes.string.isRequired,
+    // rest: PropTypes.oneOfType([
+    //   PropTypes.arrayOf(PropTypes.node),
+    //   PropTypes.node
+    // ]).isRequired
+  };
 export default InputArticle;
