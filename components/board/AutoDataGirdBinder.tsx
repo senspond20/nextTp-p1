@@ -26,13 +26,13 @@ const Td = styled.td`
      border-bottom:1px solid #eee;
 `;
 
-type Prop ={
+type Props ={
     data : any
     title : string
 }
 
-const AutoDataGirdBinder = (dto : Prop) =>{
-    const data = dto.data;
+const AutoDataGirdBinder = (props : Props) =>{
+    const data = props.data;
     const checkData = (data !=null && Array.isArray(data));
     console.log(checkData)
 
@@ -53,7 +53,7 @@ const AutoDataGirdBinder = (dto : Prop) =>{
 
     return(
         <Wrapper>
-            <Title>{dto.title}</Title>
+            <Title>{props.title}</Title>
             <Table>
                 <Thead>
                     {head}
@@ -63,7 +63,6 @@ const AutoDataGirdBinder = (dto : Prop) =>{
                 </Tbody>
             </Table>
         </Wrapper>
-
     )
 }
 
