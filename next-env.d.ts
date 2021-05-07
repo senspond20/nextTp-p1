@@ -1,0 +1,1 @@
+declare module 'json-view-for-react';

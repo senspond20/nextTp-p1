@@ -10,7 +10,9 @@ import { OpenDataUrlQueryParams } from "@utils/MakeUrl";
 import axios from "axios";
 import styled from "styled-components";
 import InputArticle from "@components/board/InputArticle";
-
+// import ReactJson from 'react-json-view'
+import { JsonView } from 'json-view-for-react'
+import "@public/json.css"
 const Wrapper = styled.section`
     background-color: #fff;
     width:100%;
@@ -18,10 +20,15 @@ const Wrapper = styled.section`
     justify-content:center;
 `;
 const Container = styled.div`
-    display:flex;
+
+`;
+const InputBox = styled.div`
+    padding-right:50px;
+`;
+const Wide = styled.div`
+    /* display:flex; */
     padding:50px;
 `;
-
 
 const today = moment();
 
@@ -81,7 +88,19 @@ const Handler = ( props : Props) => {
         // <Layout title="board">
             <Wrapper>
                 <Container>
-                    <form method={"get"} onSubmit={handleSubmit}>
+                    {/* API 셀렉터 */}
+                    <div>
+                        <h4>API 선택</h4>
+                        <select>
+                            <option>SpcdeInfoService</option>
+                            <option>2</option>
+                            <option>3</option>
+                            <option>4</option>
+                        </select>
+                    </div>
+                    <Wide>
+                    {/* 인풋 폼 */}
+                    <form method={"get"} onSubmit={handleSubmit} style={{display:"flex", justifyContent:"center"}}>
                         {/* <div>
                             {
                                 Object.keys(params).map((k, index)=> {
@@ -94,9 +113,14 @@ const Handler = ( props : Props) => {
                             }
                                 <div><input type={"submit"} value={"조회"}/></div>
                         </div> */}
-                        <InputArticle params={params}/>
+                        <InputArticle params={params} />
                     </form>
-                    <AutoDataGirdBinder data={props.response} title={"공공데이터 API 조회 결과입니다"}/>
+
+                    {/* 데이터 그리드 */}
+                    <AutoDataGirdBinder data={props.response} title={"API 조회 결과입니다"}/>
+                    </Wide>
+                    {/* <JsonView obj={props.response} cssPrefix='jsonview' showLineNumbers highlightedLineNumbers={[2, 40]} /> */}
+                    <JsonView obj={props.response} cssPrefix='jsonview' showLineNumbers />
                 </Container>
             </Wrapper>
         // </Layout>

@@ -1,13 +1,15 @@
 import {OpenDataUrlQueryParams} from "@utils/MakeUrl";
 import axios from "axios";
+import { exception } from "console";
 
 const rootUrl = "http://apis.data.go.kr/B090041/openapi/service/SpcdeInfoService";
+
 
 /**
  * getAnniversaryInfo
  * @param params
  */
-export async function getAnniversaryInfo(params: object) : Promise<[]> {
+export async function getAnniversaryInfo(params: object) : Promise<[]>  {
     const baseUrl = rootUrl + "/getAnniversaryInfo";
     let url = OpenDataUrlQueryParams(baseUrl, params) + '&type=JSON';
     console.log(url)
