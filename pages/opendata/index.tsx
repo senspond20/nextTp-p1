@@ -12,36 +12,16 @@ import styled from "styled-components";
 import InputArticle from "@components/board/InputArticle";
 
 const Wrapper = styled.section`
-  background-color: #fff;
+    background-color: #fff;
+    width:100%;
+    display:flex;
+    justify-content:center;
+`;
+const Container = styled.div`
+    display:flex;
+    padding:50px;
 `;
 
-/**
- * Posts View를 랜더링 한다.
- * @constructor
- * @param props
- */
-const style={
-    center : {
-        margin : '0 auto',
-        textAlign:'center' as const
-    },
-    form :{
-        border : '1px solid red',
-        padding : '45px 50px 40px 40px',
-        display : 'flex',
-        justipyAligin : 'center'
-        // width : '450px',
-    },
-    Wrapper :{
-
-    },
-    Label :{
-
-    },
-    Input :{
-
-    }
-}
 
 const today = moment();
 
@@ -100,23 +80,24 @@ const Handler = ( props : Props) => {
     return (
         // <Layout title="board">
             <Wrapper>
-                <h1>Data Get</h1>
-                <form method={"get"} style={style.form} onSubmit={handleSubmit}>
-                    {/* <div>
-                        {
-                            Object.keys(params).map((k, index)=> {
-                                const v = Object(params)[k];
-                            
-                                return (<InputWithLabel key={index} label={k} defaultValue={ v!='' ? v : ''} name={k} style={style}/>)
-                                // return( <div  key={index}><label>{k} : </label><input type={"text"} defaultValue={ v!='' ? v : ''} name={k}/></div> )
-    
-                            })
-                        }
-                            <div><input type={"submit"} value={"조회"}/></div>
-                    </div> */}
-                    <InputArticle params={params}/>
-                </form>
-                <AutoDataGirdBinder data={props.response} title={"공공데이터 API 조회 결과입니다"}/>
+                <Container>
+                    <form method={"get"} onSubmit={handleSubmit}>
+                        {/* <div>
+                            {
+                                Object.keys(params).map((k, index)=> {
+                                    const v = Object(params)[k];
+                                
+                                    return (<InputWithLabel key={index} label={k} defaultValue={ v!='' ? v : ''} name={k} style={style}/>)
+                                    // return( <div  key={index}><label>{k} : </label><input type={"text"} defaultValue={ v!='' ? v : ''} name={k}/></div> )
+        
+                                })
+                            }
+                                <div><input type={"submit"} value={"조회"}/></div>
+                        </div> */}
+                        <InputArticle params={params}/>
+                    </form>
+                    <AutoDataGirdBinder data={props.response} title={"공공데이터 API 조회 결과입니다"}/>
+                </Container>
             </Wrapper>
         // </Layout>
     );

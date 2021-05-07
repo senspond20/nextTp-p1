@@ -1,19 +1,41 @@
 import React from 'react';
 import PropTypes from "prop-types";
 import styled from 'styled-components';
+import oc from 'open-color';
 
 const Wrapper = styled.div`
-    position: sticky;
+    /* position: sticky; */
     top:50px;
+    display: flex;
+    justify-content : center;
+    align-items: center;
+    width:100%;
+   
+`;
+const InputDiv = styled.div`
+
+`;
+const Button = styled.div`
+    background-color : ${oc.blue[6]};
+    cursor: pointer;
+    outline: none;
+    color: #eee;
+    margin-top:10px;
+    padding:10px;
+    width:100%;
+    border-radius:3px;
+    text-align:center;
+    font-size:1.3rem;
+    font-weight:600;
 `;
 const Label = styled.label`
     font-size: 1rem;
-    color: #eee;
+    color: ${oc.gray[6]};
     margin-bottom: 0.25rem;
 `;
 const Input = styled.input`
     width: 100%;
-    border :1px solid #eee;
+    border :1px solid ${oc.gray[3]};
     outline: none;
     border-radius: 0px;
     line-height: 2.5rem;
@@ -25,10 +47,10 @@ const Input = styled.input`
 //@ts-ignore
 const InputWithLabel = ({label, ...rest}) =>{
     return (
-        <div>
+        <InputDiv>
             <Label>{label}</Label>
             <Input type ='text' {...rest}/>
-        </div>
+        </InputDiv>
     )
 }
 type Props ={
@@ -41,6 +63,7 @@ const InputArticle = (props : Props) => {
    
     return (
             <Wrapper>
+                <div>
                 {
                 (Array.isArray(arr)) ?
                     arr.map((k, index)=> {
@@ -51,7 +74,8 @@ const InputArticle = (props : Props) => {
 
                     }) :<div></div>
                 }
-                    <div><input type={"submit"} value={"조회"}/></div>
+                    <div><Button>조회</Button></div>
+                </div>
             </Wrapper>
     )
 

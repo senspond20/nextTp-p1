@@ -1,10 +1,11 @@
 import React from "react";
 import styled from 'styled-components';
+import oc from 'open-color';
 
 const Wrapper = styled.article``;
 const Title = styled.h4`
     text-align: center;
-    color : #555;
+    color : ${oc.gray[6]};
 `;
 const Table = styled.table`
     margin: 0 auto;
@@ -15,8 +16,8 @@ const Table = styled.table`
     border-radius: 9px;
 `;
 const Thead = styled.thead`
-    border-bottom:10px solid #333;
-    color : #3492df;
+    border-bottom:10px solid ${oc.gray[4]};
+    color : ${oc.blue[6]};
     font-size: 1.4em;
 `;
 const Tbody = styled.tbody`
